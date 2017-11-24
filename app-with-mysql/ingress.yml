@@ -1,0 +1,15 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spring-mysql
+  namespace: default
+spec:
+  rules:
+  - host: spring-mysql.pks.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: spring-mysql
+          servicePort: 8080

@@ -1,0 +1,19 @@
+---
+apiVersion: voyager.appscode.com/v1beta1 
+kind: Ingress
+metadata:
+  name: spring-mysql
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: voyager
+    ingress.appscode.com/type: HostPort
+spec:
+  rules:
+  - host: spring-mysql.pks.com
+    http:
+      port: '8080'
+      paths:
+      - path: /
+        backend:
+          serviceName: spring-mysql
+          servicePort: 8080

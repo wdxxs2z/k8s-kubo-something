@@ -1,0 +1,44 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spring-mysql
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: spring-mysql
+    spec:
+      containers:
+      - name: spring-mysql
+        image: wdxxsez/spring-music-mysql:1.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MYSQL_DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: hostname
+        - name: MYSQL_DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: port
+        - name: MYSQL_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: username
+        - name: MYSQL_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: password
+        - name: MYSQL_DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: mysql-credentials
+              key: dbname
+
